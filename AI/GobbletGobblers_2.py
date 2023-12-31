@@ -1,5 +1,7 @@
 import pygame
-
+import trail
+import copy
+import pprint
 #button class
 class Button():
 	def __init__(self, x, y, image, scale):
@@ -309,155 +311,32 @@ while running:
                 if event.key == pygame.K_SPACE:
                     game_paused = False
     if (player_1=="AI" and turn == white) or(player_2=="AI" and turn == black):
+        pprint.pprint(board)
+        if( (player_1=="AI" and turn == white)):
+                maximizer =True
+                minmax_output=trail.minimax(board,4,maximizer,-10000,10000)
+        if((player_2=="AI" and turn == black)):
+             maximizer =False
+             minmax_output=trail.minimax(board,4,maximizer,-10000,10000)
         
-        selected= 6 
-        gy=3
-        gx=2
-        if selected:
-                    if turn == black:
-                        selected=selected+1
-                    if 1 <= gy < row and  1 <= gx < col:
-                        if board[gy][gx][-1] %2==1 and selected%2==0:
-                            temp=board[gy][gx][-1]+1
-                        else:
-                            temp=board[gy][gx][-1]
-                        if temp < selected:
-                            if turn == black:
-                                if flag == True and board[gy][gx][-1] != 0 and board[gy][gx][-1] % 2 == 0:
-                                    count=0
-                                    #check 3 in a row
-                                    for i in range(1,5):
-                                        if board[gy][i][-1]%2==0 and board[gy][i][-1] !=0:
-                                            count=count+1
-                                    if count==3  or (count>3  and (gx !=gx_old or gy !=gy_old)):
-                                        board[gy][gx].append(selected-1)
-                                        selected = None
-                                        win()
-                                        nextturn()
-                                        update_required = True
-                                        flag=False
-                                        
-                                    
-                                    count=0
-                                    #check 3 in a colum
-                                    for i in range(1,5):
-                                        if board[i][gx][-1]%2==0 and board[i][gx][-1] !=0:
-                                            count=count+1
-                                    if count==3  or (count>3  and (gx !=gx_old or gy !=gy_old)):
-                                        board[gy][gx].append(selected-1)
-                                        selected = None
-                                        win()
-                                        nextturn()
-                                        update_required = True
-                                        flag=False
-                                    
-                                    #check 3 in a positive main diagonal
-                                    if gy == gx:
-                                        count=0
-                                        for i in range(1,5):
-                                            if board[i][i][-1]%2==0 and board[i][i][-1] !=0:
-                                                count=count+1
-                                        if count==3  or (count>3  and (gx !=gx_old or gy !=gy_old)):
-                                            board[gy][gx].append(selected-1)
-                                            selected = None
-                                            win()
-                                            nextturn()
-                                            update_required = True
-                                            flag=False
+        pprint.pprint(board)
+        
+        if(len(minmax_output)>3):
+            ay=minmax_output[4]
+            ax=minmax_output[5]  
+            if (board[ay][ax][-1]!=0) :
+                
+                select= board[ay][ax][-1]
+                board[ay][ax].pop() 
+                ay=minmax_output[2]
+                ax=minmax_output[3] 
+                 
+                board[ay][ax].append(select)
+        
+        win()
+        nextturn()                           
+        render()
 
-                                    #check 3 in a negative main diagonal
-                                    if 5- gy == gx:
-                                        count=0
-                                        for i in range(1,5):
-                                            if board[i][5-i][-1]%2==0 and board[i][5-i][-1] !=0:
-                                                count=count+1
-                                        if count==3  or (count>3  and (gx !=gx_old or gy !=gy_old)):
-                                            board[gy][gx].append(selected-1)
-                                            selected = None
-                                            win()
-                                            nextturn()
-                                            update_required = True
-                                            flag=False
-                                    
-                                else:
-                                    board[gy][gx].append(selected-1)
-                                    selected = None
-                                    win()
-                                    nextturn()
-                                    update_required = True
-                                    flag = False
-                            else:
-                                if board[gy][gx][-1] < selected:
-                                    if flag == True and board[gy][gx][-1]%2==1:
-                                        count=0
-                                        #check 3 in a row
-                                        for i in range(1,5):
-                                            if board[gy][i][-1]%2==1 :
-                                                count=count+1
-                                        if count==3  or (count>3  and (gx !=gx_old or gy !=gy_old)):
-                                            board[gy][gx].append(selected)
-                                            selected = None
-                                            win()
-                                            nextturn()
-                                            update_required = True
-                                            flag=False
-                                        
-                                        count=0
-                                    
-                                        #check 3 in a colum
-                                        for i in range(1,5):
-                                            if board[i][gx][-1]%2==1:
-                                                count=count+1
-                                        if count==3  or (count>3  and (gx !=gx_old or gy !=gy_old)):
-                                            board[gy][gx].append(selected)
-                                            selected = None
-                                            win()
-                                            nextturn()
-                                            update_required = True
-                                            flag=False
-                                        
-                                        #check 3 in a positive main diagonal
-                                        if gy == gx:
-                                            count=0
-                                            for i in range(1,5):
-                                                if board[i][i][-1]%2==1 :
-                                                    count=count+1
-                                            if count==3  or (count>3  and (gx !=gx_old or gy !=gy_old)):
-                                                board[gy][gx].append(selected)
-                                                selected = None
-                                                win()
-                                                nextturn()
-                                                update_required = True
-                                                flag=False
-                                        #check 3 in a negative main diagonal
-                                        if 5- gy == gx:
-                                            count=0
-                                            for i in range(1,5):
-                                                if board[i][5-i][-1]%2==1 :
-                                                    count=count+1
-                                            if count==3  or (count>3  and (gx !=gx_old or gy !=gy_old)):
-                                                    board[gy][gx].append(selected)
-                                                    selected = None
-                                                    win()
-                                                    nextturn()
-                                                    update_required = True
-                                                    flag=False
-                                    else:
-                                        board[gy][gx].append(selected)
-                                        selected = None
-                                        win()
-                                        nextturn()
-                                        update_required = True
-                                        flag=False
-        else:
-                        
-                       
-                if 1 <= gx < col and 1 <= gy < row:     #piece removed from inside board
-                    flag = True
-                    gx_old = gx
-                    gy_old = gy
-                                   
-                update_required = True
     
 
     else:
@@ -621,10 +500,10 @@ while running:
                     else:
                         if piece == 0:
                             continue
-                        if turn == black and piece % 2 == 1:
+                        if turn == black and piece % 2 == 1 and player_2 =="Human" and  board[gy][gx][-1]!=0:
                             selected = piece+1
                             board[gy][gx].pop()
-                        if turn == white and piece % 2 == 0 and piece != 0:
+                        if turn == white and piece % 2 == 0 and piece != 0 and player_1 =="Human" and board[gy][gx][-1]!=0:
                             selected = piece
                             board[gy][gx].pop()
                         if 1 <= gx < col and 1 <= gy < row:     #piece removed from inside board
