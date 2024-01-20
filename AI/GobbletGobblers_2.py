@@ -228,7 +228,8 @@ main_menu=True
 
 player_1 = None
 player_2 = None
-
+depth1 = 1
+depth2 = 1
 while running:
     #Poll for events
     temp=0
@@ -252,6 +253,26 @@ while running:
         if player_1 == "AI":
             pygame.draw.circle(screen, (0,0,0), (724,284), 20, 3)
             pygame.draw.circle(screen, (0,0,255), (724,284), 17)
+            draw_text("AI-Level:", pygame.font.SysFont("arialblack", 40), (255, 255, 255), 90, 350)
+            draw_text("1", pygame.font.SysFont("arialblack", 40), (255, 255, 255), 350, 350)
+            draw_text("2", pygame.font.SysFont("arialblack", 40), (255, 255, 255), 450, 350)
+            draw_text("3", pygame.font.SysFont("arialblack", 40), (255, 255, 255), 550, 350)
+            draw_text("4", pygame.font.SysFont("arialblack", 40), (255, 255, 255), 650, 350)
+            pygame.draw.circle(screen, (0,0,0), (400,384), 20, 3)
+            pygame.draw.circle(screen, (0,0,0), (500,384), 20, 3)
+            pygame.draw.circle(screen, (0,0,0), (600,384), 20, 3)
+            pygame.draw.circle(screen, (0,0,0), (700,384), 20, 3)
+            if depth1 == 1:
+                pygame.draw.circle(screen, (0,0,255), (400,384),17)
+            if depth1 == 2:
+                pygame.draw.circle(screen, (0,0,255), (500,384),17)
+            if depth1 == 3:
+                pygame.draw.circle(screen, (0,0,255), (600,384),17)
+            if depth1 == 4:
+                pygame.draw.circle(screen, (0,0,255), (700,384),17)
+
+
+
         draw_text("Player 2:", pygame.font.SysFont("arialblack", 45), (0,0,0), 90, 450)
         draw_text("Human", pygame.font.SysFont("arialblack", 40), (0,0,0), 380, 450)
         if player_2 != "Human" or player_2 == None:
@@ -265,6 +286,23 @@ while running:
         if player_2 == "AI":
             pygame.draw.circle(screen, (0,0,0), (724,484), 20, 3)
             pygame.draw.circle(screen, (0,0,255), (724,484), 17)
+            draw_text("AI-Level:", pygame.font.SysFont("arialblack", 40), (0, 0, 0), 90, 550)
+            draw_text("1", pygame.font.SysFont("arialblack", 40), (0, 0, 0), 350, 540)
+            draw_text("2", pygame.font.SysFont("arialblack", 40), (0, 0, 0), 450, 540)
+            draw_text("3", pygame.font.SysFont("arialblack", 40), (0, 0, 0), 550, 540)
+            draw_text("4", pygame.font.SysFont("arialblack", 40), (0, 0, 0), 650, 540)
+            pygame.draw.circle(screen, (0,0,0), (400,574), 20, 3)
+            pygame.draw.circle(screen, (0,0,0), (500,574), 20, 3)
+            pygame.draw.circle(screen, (0,0,0), (600,574), 20, 3)
+            pygame.draw.circle(screen, (0,0,0), (700,574), 20, 3)
+            if depth2 == 1:
+                pygame.draw.circle(screen, (0,0,255), (400,574),17)
+            if depth2 == 2:
+                pygame.draw.circle(screen, (0,0,255), (500,574),17)
+            if depth2 == 3:
+                pygame.draw.circle(screen, (0,0,255), (600,574),17)
+            if depth2 == 4:
+                pygame.draw.circle(screen, (0,0,255), (700,574),17)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -283,11 +321,33 @@ while running:
                 if 264 <= y <= 304 and 540 <= x <= 580:
                     player_1 = "Human"
 
+                if 364 <= y <= 404 and 380 <= x <= 420:
+                      depth1 = 1
+                if 364 <= y <= 404 and 480 <= x <= 520:
+                      depth1 = 2
+                if 364 <= y <= 404 and 580 <= x <= 620:
+                      depth1 = 3
+                if 364 <= y <= 404 and 680 <= x <= 720:
+                      depth1 = 4
+
+
+
                 if 264 <= y <= 304 and 704 <= x <= 744:
                     player_1 = "AI"
+                    
 
                 if 464 <= y <= 504 and 540 <= x <= 580:
                     player_2 = "Human"
+
+
+                if 554 <= y <= 594 and 380 <= x <= 420:
+                      depth2 = 1
+                if 554 <= y <= 594 and 480 <= x <= 520:
+                      depth2 = 2
+                if 554 <= y <= 594 and 580 <= x <= 620:
+                      depth2 = 3
+                if 554 <= y <= 594 and 680 <= x <= 720:
+                      depth2 = 4
 
                 if 464 <= y <= 504 and 704 <= x <= 744:
                     player_2 = "AI"
@@ -310,14 +370,16 @@ while running:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     game_paused = False
-    if (player_1=="AI" and turn == white) or(player_2=="AI" and turn == black):
+    if (player_1=="AI" and turn == white) or(player_2=="AI" and turn == black and wins==None):
         pprint.pprint(board)
-        if( (player_1=="AI" and turn == white)):
+        if( player_1=="AI" and turn == white) :
                 maximizer =True
-                minmax_output=trail.minimax(board,4,maximizer,-10000,10000)
-        if((player_2=="AI" and turn == black)):
+                board2=copy.deepcopy(board)
+                minmax_output=trail.minimax(board2,depth1,maximizer,-10000,10000)
+        if((player_2=="AI" and turn == black)) :
              maximizer =False
-             minmax_output=trail.minimax(board,4,maximizer,-10000,10000)
+             board2=copy.deepcopy(board)
+             minmax_output=trail.minimax(board2,depth2,maximizer,-10000,10000)
         
         pprint.pprint(board)
         
@@ -333,6 +395,14 @@ while running:
                  
                 board[ay][ax].append(select)
         
+        # ay=minmax_output[4]
+        # ax=minmax_output[5] 
+        # board[ay][ax].pop() 
+        # select= minmax_output[1] 
+        
+        # ay=minmax_output[2]
+        # ax=minmax_output[3] 
+        # board[ay][ax].append(select)
         win()
         nextturn()                           
         render()
