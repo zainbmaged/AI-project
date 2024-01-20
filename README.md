@@ -24,10 +24,13 @@ that row, the game continues.
 -  Download the whole folder in one zip
 -  Run the exe file inside the dist folder
 -  in the main menu for each player choose if the player will be  AI or Human -in case of AI you will select the difficulty from 1(easy) to 4 (hard)- then press start on the right bottom corner
-![plot](./directory_1/directory_2/.../directory_n/plot.png)
+  ![image](https://github.com/zainbmaged/AI-project/assets/101899558/adee6781-992d-4f3f-91bf-df9f1919eb56)
+
 -   the White player always starts
 -   click on the piece you want to move and click on the selected position
+  ![image](https://github.com/zainbmaged/AI-project/assets/101899558/df6c720e-f8bb-46f9-91a3-d9608ba64ff0)
+
 -   you can pause or restart the match also you can return to the main menu from the New Game button
-  ![plot](./directory_1/directory_2/.../directory_n/plot.png)
 -   when a player win it is printed on bottom of screen
--   ![plot](./directory_1/directory_2/.../directory_n/plot.png)
+![image](https://github.com/zainbmaged/AI-project/assets/101899558/f713a53a-d61c-46b4-846e-fa7f4f25d737)
+
