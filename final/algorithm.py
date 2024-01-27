@@ -66,8 +66,7 @@ def MakeMove(board, piece, current_x, current_y, new_x, new_y):     #y is the ro
                             count += 1
                     if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
                         if move1 == True and board[current_y][current_x][-1] !=0:
-                            # board[current_y][current_x].pop()
-                            # board[new_y][new_x].append(selected-1)
+                            
                             move = True
                         
                     count = 0
@@ -77,8 +76,7 @@ def MakeMove(board, piece, current_x, current_y, new_x, new_y):     #y is the ro
                             count += 1
                     if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
                         if move1 == True and board[current_y][current_x][-1] !=0:
-                            # board[current_y][current_x].pop()
-                            # board[new_y][new_x].append(selected-1)
+                          
                             move = True
                     
                     #check 3 in a positive main diagonal
@@ -89,8 +87,7 @@ def MakeMove(board, piece, current_x, current_y, new_x, new_y):     #y is the ro
                                 count += 1
                         if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
                             if move1 == True and board[current_y][current_x][-1] !=0:
-                                # board[current_y][current_x].pop()
-                                # board[new_y][new_x].append(selected-1)
+                                
                                 move = True
 
                     #check 3 in a negative main diagonal
@@ -101,13 +98,11 @@ def MakeMove(board, piece, current_x, current_y, new_x, new_y):     #y is the ro
                                 count += 1
                         if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
                             if move1 == True and board[current_y][current_x][-1] !=0:
-                                # board[current_y][current_x].pop()
-                                # board[new_y][new_x].append(selected-1)
+                                
                                 move = True      
                 else:
                     if move1 == True and board[current_y][current_x][-1] !=0:
-                        # board[current_y][current_x].pop()
-                        # board[new_y][new_x].append(selected-1)
+                      
                         move = True
             else:
                 if board[new_y][new_x][-1] < selected:
@@ -119,8 +114,7 @@ def MakeMove(board, piece, current_x, current_y, new_x, new_y):     #y is the ro
                                 count += 1
                         if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
                             if move1 == True and board[current_y][current_x][-1] !=0:
-                                # board[current_y][current_x].pop()
-                                # board[new_y][new_x].append(selected)
+                             
                                 move = True
                         
                         count = 0
@@ -130,8 +124,7 @@ def MakeMove(board, piece, current_x, current_y, new_x, new_y):     #y is the ro
                                 count += 1
                         if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
                             if move1 == True and board[current_y][current_x][-1] !=0:
-                                # board[current_y][current_x].pop()
-                                # board[new_y][new_x].append(selected)
+                           
                                 move = True
                         
                         #check 3 in a positive main diagonal
@@ -142,8 +135,7 @@ def MakeMove(board, piece, current_x, current_y, new_x, new_y):     #y is the ro
                                     count += 1
                             if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
                                 if move1 == True and board[current_y][current_x][-1] !=0:
-                                    # board[current_y][current_x].pop()
-                                    # board[new_y][new_x].append(selected)
+                                 
                                     move = True
                         
                         #check 3 in a negative main diagonal
@@ -154,13 +146,11 @@ def MakeMove(board, piece, current_x, current_y, new_x, new_y):     #y is the ro
                                     count += 1
                             if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
                                 if move1 == True and board[current_y][current_x][-1] !=0:
-                                    # board[current_y][current_x].pop()
-                                    # board[new_y][new_x].append(selected)
+                                   
                                     move = True
                     else:
                         if move1 == True and board[current_y][current_x][-1] !=0:
-                            # board[current_y][current_x].pop()
-                            # board[new_y][new_x].append(selected)
+                           
                             move = True
     return move
 
