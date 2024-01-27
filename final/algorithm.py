@@ -163,7 +163,16 @@ def MakeMove(board, piece, current_x, current_y, new_x, new_y):     #y is the ro
                             # board[new_y][new_x].append(selected)
                             move = True
     return move
-    
+
+#first evaluate function
+ def evaluate(board):
+    if winningPlayer(board)==1:
+        return 1
+    elif winningPlayer(board)==-1:
+        return -1
+    else:
+        return 0
+ #second evaluate function  
 def evaluate3(board,player):
     # declare variables to store sum for the black player (minmizer) at each direction
     row_matrix_sum_black=[0]*4
