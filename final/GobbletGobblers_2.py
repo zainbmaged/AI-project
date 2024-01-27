@@ -1,5 +1,5 @@
 import pygame
-import trail
+import algorithm
 import copy
 import pprint
 #button class
@@ -381,17 +381,17 @@ while running:# running state
                 maximizer =True
                 board2=copy.deepcopy(board)
                 if(depth1 == 1 or depth1 == 2):
-                    minmax_output=trail.minimax(board2,depth1,maximizer,-10000,10000)
+                    minmax_output=algorithm.minimax(board2,depth1,maximizer,-10000,10000)
                 else:
-                     minmax_output=trail.minimax2(board2,depth1,maximizer,-10000,10000)
+                     minmax_output=algorithm.minimax2(board2,depth1,maximizer,-10000,10000)
                      
         if((player_2=="AI" and turn == black)) :
              maximizer =False
              board2=copy.deepcopy(board)
              if(depth2 == 1 or depth2 == 2):
-                 minmax_output=trail.minimax(board2,depth2,maximizer,-10000,10000)
+                 minmax_output=algorithm.minimax(board2,depth2,maximizer,-10000,10000)
              else:
-                  minmax_output=trail.minimax2(board2,depth2,maximizer,-10000,10000)
+                  minmax_output=algorithm.minimax2(board2,depth2,maximizer,-10000,10000)
                   
         
         # pprint.pprint(board)
