@@ -43,7 +43,27 @@ def heuristic(board,player):
 
 
 
+def availablePieces(board, isWhite,Pieces):
+    if isWhite:
+        for x in range(1, 4):
+            if board[0][x][-1] in (2, 4, 6, 8):
+                Pieces.append([board[0][x][-1], 0,x])
 
+        for i in range(1, 5):
+          for j in range(1, 5):
+              if board[i][j][-1] in (2, 4, 6, 8):
+                 Pieces.append([board[i][j][-1], i,j])
+                  
+
+    else:
+        for x in range(1, 4):
+            if board[x][0][-1] in (1,3,5,7):
+                Pieces.append([board[x][0][-1], x,0])
+        for i in range(1, 5):
+            for j in range(1, 5):
+                if board[i][j][-1] in (1,3,5,7):
+                    Pieces.append([board[i][j][-1], i,j])
+                    
 
 def UndoMove(board, piece, old_x, old_y, current_x, current_y):
     if(board[current_x][current_y][-1]!=0):
