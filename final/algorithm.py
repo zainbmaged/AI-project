@@ -37,7 +37,7 @@ def evaluate3(board,player):
     return max(whiht_max,black_max,key=abs)*-player
                 
 # Heuristic function for AI
-def heuristic(board,player):
+def heuristic2(board,player):
     return evaluate3(board,player)
 
 
