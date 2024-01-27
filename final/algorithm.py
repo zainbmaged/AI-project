@@ -208,7 +208,7 @@ def heuristic2(board,player):
 
 
 
-
+#function that gets the current pieces available for the player in turn
 def availablePieces(board, isWhite,Pieces):
     if isWhite:
         for x in range(1, 4):
@@ -231,6 +231,7 @@ def availablePieces(board, isWhite,Pieces):
                     Pieces.append([board[i][j][-1], i,j])
                     
 
+#functions that take a piece and its current position and returns it to original postion before the move was made
 def UndoMove(board, piece, old_x, old_y, current_x, current_y):
     if(board[current_x][current_y][-1]!=0):
         board[current_x][current_y].pop()
