@@ -214,7 +214,8 @@ def evaluate3(board,player):
 # Heuristic function for AI
 def heuristic2(board,player):
     return evaluate3(board,player)
-
+def heuristic(board):
+    return evaluate(board)
 
 
 #function that gets the current pieces available for the player in turn
