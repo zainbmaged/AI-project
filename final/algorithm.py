@@ -39,3 +39,18 @@ def evaluate3(board,player):
 # Heuristic function for AI
 def heuristic(board,player):
     return evaluate3(board,player)
+
+
+
+
+
+
+def UndoMove(board, piece, old_x, old_y, current_x, current_y):
+    if(board[current_x][current_y][-1]!=0):
+        board[current_x][current_y].pop()
+
+        board[old_x][old_y].append(piece)
+
+
+
+
