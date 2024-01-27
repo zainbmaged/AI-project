@@ -180,7 +180,7 @@ def render():
         for c in range(1,col-1):           
             #draw grid with white squares 
             pygame.draw.rect(screen, black, (c*120, r*120,240,240), 1)
-
+# add players stacks
     for r in range(row):
         for c in range(col):	
             for s in range(len(board[r][c])):	
@@ -188,6 +188,8 @@ def render():
                     pygame.draw.circle(screen, white, ((120*c)+60,(120*r)+60), board[r][c][s]*6.5)
                 if board[r][c][s]==1 or board[r][c][s]==3 or board[r][c][s]==5 or board[r][c][s]==7:	
                     pygame.draw.circle(screen, black, ((120*c)+60,(120*r)+60),(board[r][c][s]+1)*6.5)
+
+# update state
     if quit_button.draw(screen):
         running = False
     if restart_button.draw(screen):
@@ -196,12 +198,13 @@ def render():
         game_paused = True
     if new_button.draw(screen):
        main_menu = True
+#draw motion of selected piece
     if selected:
         pc, pr = pygame.mouse.get_pos()    
         pygame.draw.circle(screen, turn, (pc, pr), (selected)*6.5)
 
     myfont = pygame.font.SysFont("monospace", 36, True)
-   
+# update text written on screen   
     if wins==None:
         if turn == black:
             text=(myfont.render("Turn: Black", True, turn))
@@ -220,22 +223,23 @@ def render():
         screen.blit(text, (70, 610))
         pygame.display.flip()
    
-                
+# one time intializations                
 flag = False
 
 initializeBoard()
 main_menu=True
 
+# player type Human or AI
 player_1 = None
 player_2 = None
-depth1 = 1
-depth2 = 1
-while running:
+depth1 = 1 # AI player1 level
+depth2 = 1  #AI player2 level
+while running:# running state
     #Poll for events
     temp=0
     update_required = False
     render()
-    while main_menu == True:
+    while main_menu == True:## draw main menu labels and buttons
         screen.fill((196, 164, 132))
         screen.blit(pygame.transform.scale(gobblet_img, (100,100)), (350,23)) 
         draw_text("Gobblet ", pygame.font.SysFont("arialblack", 45), (248, 111, 3), 198, 120)
@@ -303,7 +307,7 @@ while running:
                 pygame.draw.circle(screen, (0,0,255), (600,574),17)
             if depth2 == 4:
                 pygame.draw.circle(screen, (0,0,255), (700,574),17)
-
+## get depth selected in case of ai player
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -358,7 +362,7 @@ while running:
                 main_menu = False
 
         pygame.display.flip()
-            
+   ##game paused state         
     while game_paused == True:
         screen.fill((52, 78, 91))
         draw_text("Game paused press Space to resume", pygame.font.SysFont("arialblack", 35), (255, 255, 255), 50, 320)
@@ -370,6 +374,7 @@ while running:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     game_paused = False
+## call minmax in case player is AI
     if (player_1=="AI" and turn == white) or(player_2=="AI" and turn == black and wins==None):
         # pprint.pprint(board)
         if( player_1=="AI" and turn == white) :
@@ -416,7 +421,7 @@ while running:
         render()
 
     
-
+## handle Human player move
     else:
         # pygame.QUIT event means the user clicked X to close your window
         for event in pygame.event.get():
@@ -592,7 +597,7 @@ while running:
                         update_required = True
 
                 
- 
+ ## update screen
     if selected or update_required:
         render() 
 
