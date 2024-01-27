@@ -1,3 +1,169 @@
+import pygame
+import random
+'''
+MakeMove(board, piece, current_x, current_y, new_x, new_y)
+If move is valid 
+Make move and update board
+If move is not valid
+Return false
+'''
+
+def MakeMove(board, piece, current_x, current_y, new_x, new_y):     #y is the row and x is the column.
+    move = False
+    move1 = False
+    coordinates = False
+    selected = None
+    myPiece = 0
+
+    #Check if all coordinates are valid 
+    if current_x >= 5 or current_y >= 5 or new_x >= 5 or new_y >= 5:
+        move = False
+    elif (current_x == 0 and current_y == 0) or (new_x == 0 and new_y == 0):
+        move = False
+    elif (current_x == 0 and current_y == 4) or (current_x == 4 and current_y == 0) or (new_x == 0 and new_y == 4) or (new_x == 4 and new_y == 0):
+        move = False 
+    elif not((1 <= new_x <= 4) and (1 <= new_y <= 4)):      #If the new coordinates to play are not on the board
+        move = False
+    else:
+        coordinates = True
+    
+    #Check if the piece to be moved is outside the board
+    if (current_x == 0 and 1 <= current_y <= 3) or (1 <= current_x <= 3 and current_y == 0):
+        piece_on_board = False
+
+    #Check if the piece to be moved is placed on the board
+    if (1 <= current_x <= 4) and (1 <= current_y <= 4):
+        piece_on_board = True
+    
+    if coordinates == True:
+        if board[current_y][current_x][-1] == piece:
+            myPiece = board[current_y][current_x][-1]
+        else:
+            myPiece = 0
+    
+    if myPiece == 0:
+        pass
+    if (myPiece % 2 == 1):
+        selected = myPiece
+        move1 = True
+    if (myPiece % 2 == 0) and (myPiece != 0):
+        selected = myPiece
+        move1 = True
+
+    if selected:
+        if (board[new_y][new_x][-1] % 2 == 1) and (selected % 2 == 0):
+            temp = board[new_y][new_x][-1] + 1
+        else:
+            temp = board[new_y][new_x][-1]
+        if temp < selected:
+            if myPiece % 2 == 1:
+                selected += 1
+                if piece_on_board == True and board[new_y][new_x][-1] != 0 and board[new_y][new_x][-1] % 2 == 0:
+                    count = 0
+                    #check 3 in a row
+                    for i in range(1,5):
+                        if (board[new_y][i][-1] % 2 == 0) and (board[new_y][i][-1] != 0):
+                            count += 1
+                    if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
+                        if move1 == True and board[current_y][current_x][-1] !=0:
+                            # board[current_y][current_x].pop()
+                            # board[new_y][new_x].append(selected-1)
+                            move = True
+                        
+                    count = 0
+                    #check 3 in a column
+                    for i in range(1,5):
+                        if (board[i][new_x][-1] % 2 == 0) and (board[i][new_x][-1] != 0):
+                            count += 1
+                    if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
+                        if move1 == True and board[current_y][current_x][-1] !=0:
+                            # board[current_y][current_x].pop()
+                            # board[new_y][new_x].append(selected-1)
+                            move = True
+                    
+                    #check 3 in a positive main diagonal
+                    if (new_y == new_x):
+                        count = 0
+                        for i in range(1,5):
+                            if (board[i][i][-1] %2 == 0) and (board[i][i][-1] != 0):
+                                count += 1
+                        if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
+                            if move1 == True and board[current_y][current_x][-1] !=0:
+                                # board[current_y][current_x].pop()
+                                # board[new_y][new_x].append(selected-1)
+                                move = True
+
+                    #check 3 in a negative main diagonal
+                    if (5 - new_y == new_x):
+                        count = 0
+                        for i in range(1,5):
+                            if (board[i][5-i][-1] %2 == 0) and (board[i][5-i][-1] != 0):
+                                count += 1
+                        if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
+                            if move1 == True and board[current_y][current_x][-1] !=0:
+                                # board[current_y][current_x].pop()
+                                # board[new_y][new_x].append(selected-1)
+                                move = True      
+                else:
+                    if move1 == True and board[current_y][current_x][-1] !=0:
+                        # board[current_y][current_x].pop()
+                        # board[new_y][new_x].append(selected-1)
+                        move = True
+            else:
+                if board[new_y][new_x][-1] < selected:
+                    if (piece_on_board == True) and (board[new_y][new_x][-1] % 2 == 1):
+                        count = 0
+                        #check 3 in a row
+                        for i in range(1,5):
+                            if board[new_y][i][-1] % 2 == 1:
+                                count += 1
+                        if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
+                            if move1 == True and board[current_y][current_x][-1] !=0:
+                                # board[current_y][current_x].pop()
+                                # board[new_y][new_x].append(selected)
+                                move = True
+                        
+                        count = 0
+                        #check 3 in a column
+                        for i in range(1,5):
+                            if board[i][new_x][-1] % 2 == 1:
+                                count += 1
+                        if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
+                            if move1 == True and board[current_y][current_x][-1] !=0:
+                                # board[current_y][current_x].pop()
+                                # board[new_y][new_x].append(selected)
+                                move = True
+                        
+                        #check 3 in a positive main diagonal
+                        if new_y == new_x:
+                            count = 0
+                            for i in range(1,5):
+                                if board[i][i][-1] % 2 == 1:
+                                    count += 1
+                            if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
+                                if move1 == True and board[current_y][current_x][-1] !=0:
+                                    # board[current_y][current_x].pop()
+                                    # board[new_y][new_x].append(selected)
+                                    move = True
+                        
+                        #check 3 in a negative main diagonal
+                        if (5 - new_y == new_x):
+                            count = 0
+                            for i in range(1,5):
+                                if board[i][5-i][-1] % 2 == 1:
+                                    count += 1
+                            if (count == 3)  or (count > 3  and (new_x != current_x or new_y != current_y)):
+                                if move1 == True and board[current_y][current_x][-1] !=0:
+                                    # board[current_y][current_x].pop()
+                                    # board[new_y][new_x].append(selected)
+                                    move = True
+                    else:
+                        if move1 == True and board[current_y][current_x][-1] !=0:
+                            # board[current_y][current_x].pop()
+                            # board[new_y][new_x].append(selected)
+                            move = True
+    return move
+    
 def evaluate3(board,player):
     # declare variables to store sum for the black player (minmizer) at each direction
     row_matrix_sum_black=[0]*4
