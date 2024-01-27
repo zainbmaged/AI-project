@@ -53,4 +53,85 @@ def UndoMove(board, piece, old_x, old_y, current_x, current_y):
 
 
 
+def minimax2(board, depth, is_maximizing , alpha, beta):
+    result=heuristic2(board,is_maximizing)
+    if depth == 0 or result==1000 or result == -1000  :
+        return [result]
+    if is_maximizing:
+        prune=False
+        final_score = -3000
+        final_i, final_j, piece, current_i, current_j = None, None, None, None, None
+        whitePieces=[]
+        availablePieces(board, True,whitePieces)
+        random.shuffle(whitePieces)
+        for k in range(0, len(whitePieces)):
+            if prune == True:
+                break
+            for i in range(1, 5):
+                if prune == True:
+                    break
+                for j in range(1, 5):
+                    valid = MakeMove(board, whitePieces[k][0], whitePieces[k][2], whitePieces[k][1], j, i)
+                    if valid:
+                        board[i][j].append(whitePieces[k][0])
+                        board[whitePieces[k][1]][whitePieces[k][2]].pop()
+                        score = minimax(board, depth-1, False,alpha,beta)[0]
+                        UndoMove(board, whitePieces[k][0], whitePieces[k][1], whitePieces[k][2], i, j)
+                        if score > final_score:
+                            final_score = score
+                            
+                            alpha = max(alpha, final_score)
+                            final_i = i
+                            final_j = j
+                            piece = whitePieces[k][0]
+                            current_i = whitePieces[k][1]
+                            current_j = whitePieces[k][2]
+                            if  alpha >= beta: 
+                                prune=True
+                                break
+                
+
+    else:
+        prune =False
+        final_score = 3000
+        final_i, final_j, piece, current_i, current_j = None, None, None, None, None
+        blackPieces=[]
+        availablePieces(board, False,blackPieces)
+       
+        for k in range(0, len(blackPieces)):
+            if prune == True:
+                break
+            for i in range(1, 5):
+                if prune == True:
+                    break
+                for j in range(1, 5):
+                    valid= MakeMove(board,blackPieces[k][0], blackPieces[k][2], blackPieces[k][1], j, i)
+                    if valid:
+                        board[i][j].append(blackPieces[k][0])
+                        board[blackPieces[k][1]][blackPieces[k][2]].pop()
+                        score = minimax(board, depth-1, True,alpha,beta)[0]
+                        UndoMove(board, blackPieces[k][0], blackPieces[k][1], blackPieces[k][2], i, j)
+                        if score < final_score:
+                            final_score = score
+                            beta = min(beta,final_score)
+                            final_i = i
+                            final_j = j
+                            piece = blackPieces[k][0]
+                            current_i = blackPieces[k][1]
+                            current_j = blackPieces[k][2]
+                            if beta <= alpha:
+                                prune = True
+                                break
+
+ 
+
+    return [final_score,  piece, final_i, final_j,current_i,current_j]
+
+
+
+
+
+
+
+
 
