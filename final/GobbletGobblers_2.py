@@ -14,8 +14,6 @@ class Button():
 
 	def draw(self, surface):
 		action = False
-              
-          
         
 		#get mouse position
 		pos = pygame.mouse.get_pos()
@@ -26,7 +24,6 @@ class Button():
 				self.clicked = True
 				action = True
                 
-
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
 
@@ -85,6 +82,7 @@ def initializeBoard():
     board[0][2] = [0,2,4,6,8]
     board[0][3] = [0,2,4,6,8]
     wins=None
+
 selected = None
 turn = white
 
@@ -105,8 +103,7 @@ def win():
                                         if board[i][j][-1]%2==0 and board[i][j][-1] !=0:
                                            count=count+1
                                     if count>3:
-                                         wins="White"
-                                         
+                                         wins = "White"  
                                     
                                 
                                 for i in range(1,5):
@@ -115,16 +112,15 @@ def win():
                                      if board[j][i][-1]%2==0 and board[j][i][-1] !=0:
                                         count=count+1
                                     if count>3:
-                                        wins="White"
+                                        wins = "White"
                                     
                                 #check 3 in a positive main diagonal
-                               
-                                count=0
+                                count = 0
                                 for i in range(1,5):
                                         if board[i][i][-1]%2==0 and board[i][i][-1] !=0:
                                             count=count+1
                                 if count>3:
-                                        wins="White"
+                                        wins = "White"
                                         
                                 #check 3 in a negative main diagonal
                                 
@@ -132,9 +128,8 @@ def win():
                                 for i in range(1,5):
                                         if board[i][5-i][-1]%2==0 and board[i][5-i][-1] !=0:
                                             count=count+1
-                                if count>3:
-                                        wins="White"
-
+                                if count > 3:
+                                        wins = "White"
 
                                  #check 3 in a row
                                 
